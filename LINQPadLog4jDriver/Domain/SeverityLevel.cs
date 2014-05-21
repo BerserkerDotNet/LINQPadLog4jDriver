@@ -7,6 +7,7 @@
         Info = 2,
         Warn = 3,
         Error = 4,
-        Fatal = 5
+        Fatal = 5,
+        Custom = 6
     }
 }

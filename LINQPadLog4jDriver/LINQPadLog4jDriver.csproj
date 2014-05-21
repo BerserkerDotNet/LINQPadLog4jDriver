@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\DateFilterMode.cs" />
     <Compile Include="Domain\LogEntry.cs" />
     <Compile Include="Domain\SeverityLevel.cs" />
     <Compile Include="Domain\Log4jConnectionProperties.cs" />

@@ -46,8 +46,8 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Driver
             logsTable.Children = properties;
             result.Add(logsTable);
             var filesItem = new ExplorerItem("Files", ExplorerItemKind.Category, ExplorerIcon.Box);
-            
-            filesItem.Children =  DirectoryHelper.GetFilteredFiles(new Log4jConnectionProperties(cxInfo))
+
+            filesItem.Children = DirectoryHelper.GetActiveFiles(new Log4jConnectionProperties(cxInfo))
                      .Select(f => new ExplorerItem(f, ExplorerItemKind.Schema, ExplorerIcon.Schema)).ToList();
             result.Add(filesItem);
             result.Add(new ExplorerItem("ClearCache", ExplorerItemKind.QueryableObject, ExplorerIcon.StoredProc){DragText = "ClearCache()"});

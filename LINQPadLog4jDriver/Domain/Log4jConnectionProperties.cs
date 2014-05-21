@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using LINQPad.Extensibility.DataContext;
 
 namespace BerserkerDotNet.LINQPadLog4jDriver.Domain
@@ -8,6 +9,8 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Domain
         private const string PATH_KEY = "Path";
         private const string CACHE_KEY = "UseCache";
         private const string FILE_NAME_FILTER_KEY = "FileNameFilter";
+        private const string DATE_FILTER_MODE_FILTER_KEY = "DateFilterMode";
+        private const string SPECIFIC_DATE_KEY = "SpecificFilterDate";
 
         private readonly XElement _driverData;
 
@@ -36,6 +39,23 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Domain
         {
             get { return (string)_driverData.Element(FILE_NAME_FILTER_KEY) ?? string.Empty; }
             set { _driverData.SetElementValue(FILE_NAME_FILTER_KEY, value); }
+        }
+
+        public DateFilterMode DateFilterMode {
+            get
+            {
+                var storedValue = _driverData.Element(DATE_FILTER_MODE_FILTER_KEY);
+                if (storedValue == null)
+                    return DateFilterMode.None;
+                return (DateFilterMode)Enum.Parse(typeof(DateFilterMode),storedValue.Value, true);
+            }
+            set { _driverData.SetElementValue(DATE_FILTER_MODE_FILTER_KEY, value); }
+        }
+
+        public DateTime? SpecificDate
+        {
+            get { return (DateTime?)_driverData.Element(SPECIFIC_DATE_KEY); }
+            set { _driverData.SetElementValue(SPECIFIC_DATE_KEY, value); }
         }
     }
 }

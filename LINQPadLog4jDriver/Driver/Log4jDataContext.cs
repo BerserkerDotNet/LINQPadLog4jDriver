@@ -21,7 +21,8 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Driver
 
         private IEnumerable<LogEntry> ReadLogs()
         {
-            var logFiles = DirectoryHelper.GetFilteredFiles(_properties);
+            DirectoryHelper.RefreshFilteredFilesList(_properties);
+            var logFiles = DirectoryHelper.GetActiveFiles(_properties);
             var date = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             var settings = new XmlReaderSettings { ConformanceLevel = ConformanceLevel.Fragment, };
             var nameTable = new NameTable();
@@ -59,9 +60,7 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Driver
                 prevTimeStamp = entry.TimeStamp;
 
                 var severityLevel = xmlTextReader.GetAttribute("level");
-                entry.SeverityLevel = string.IsNullOrEmpty(severityLevel)
-                                          ? SeverityLevel.None
-                                          : (SeverityLevel) Enum.Parse(typeof (SeverityLevel), severityLevel.ToTitleCase());
+                entry.SeverityLevel = severityLevel;
                 entry.Thread = xmlTextReader.GetAttribute("thread");
 
                 ProcessChildNodes(xmlTextReader, entry);
