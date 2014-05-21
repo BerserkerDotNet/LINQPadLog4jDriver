@@ -3,33 +3,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="301" d:DesignWidth="302" Width="410" Height="210" ResizeMode="NoResize" Title="Properties" WindowStartupLocation="CenterScreen">
-    <StackPanel>
-        <GroupBox Header="Connection settings">
+             mc:Ignorable="d" d:DesignWidth="302" Width="410" Height="Auto" 
+                ResizeMode="NoResize" Title="Properties" WindowStartupLocation="CenterScreen"
+                SizeToContent="Height">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Connection settings" Grid.Row="0">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="Path:" VerticalAlignment="Center" Margin="5"/>
-                    <TextBox Margin="5" Width="300" FontSize="16" IsReadOnly="True" Text="{Binding Folder, Mode=TwoWay}"/>
-                    <Button Content="..." Width="40" Height="24" Command="{Binding SelectFolder}"/>
+                    <StackPanel>
+                        <TextBlock Text="Data sources:" VerticalAlignment="Center" Margin="5" />
+                        <TextBox Margin="5,0,0,0" Width="340" FontSize="16" AcceptsReturn="True"
+                           MaxLines="20" Height="Auto"   TextWrapping="Wrap" Text="{Binding Folder, Mode=TwoWay}"/>
+                        <TextBlock Text="*Set multiple sources separated by a line break." Margin="15,0,0,0" FontSize="10"></TextBlock>
+                    </StackPanel>
+                    <Button Content="+" Width="40" Height="24" Command="{Binding SelectFolder}" VerticalAlignment="Top" Margin="5,25,0,0"/>
                 </StackPanel>
-                <CheckBox Content="Use Cache" Margin="10,5,5,5" IsChecked="{Binding UseCache, Mode=TwoWay}"/>
+                <CheckBox Content="Use Cache" Margin="5,5,5,5" IsChecked="{Binding UseCache, Mode=TwoWay}"/>
             </StackPanel>
         </GroupBox>
-
-        <GroupBox Header="Filters">
+        <GroupBox Header="Filters"  Grid.Row="1">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="File Name:" VerticalAlignment="Center" Margin="5" ToolTip="Enter regex pattern for file name filtering"/>
                     <TextBox Margin="5" Width="300" FontSize="14"  Text="{Binding FileNameRegex, Mode=TwoWay}" />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5">Date filter:</TextBlock>
+                    <ComboBox SelectedIndex="{Binding DateFilterMode, Mode=TwoWay}" Margin="6,0,0,0" Width="300">
+                        <ComboBoxItem>None</ComboBoxItem>
+                        <ComboBoxItem>Last day</ComboBoxItem>
+                        <ComboBoxItem>Previous 2 days</ComboBoxItem>
+                        <ComboBoxItem>Last week</ComboBoxItem>
+                        <ComboBoxItem>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Margin="0,3,5,0"> Specific date:</TextBlock>
+                                <DatePicker Width="250" SelectedDate="{Binding SpecificDate}"/>
+                            </StackPanel>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
             </StackPanel>
         </GroupBox>
-
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Row="2">
             <Button Content="Apply" Margin="10" Width="50" Command="{Binding Apply}"/>
             <Button Content="Cancel" Margin="10" Width="50" Command="{Binding Cancel}"/>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

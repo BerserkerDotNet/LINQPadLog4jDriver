@@ -19,7 +19,7 @@ namespace BerserkerDotNet.LINQPadLog4jDriver.Domain
         public string File { get; set; }
         public string Line { get; set; }
         public string Uncategorized { get; set; }
-        public SeverityLevel SeverityLevel { get; set; }
+        public string SeverityLevel { get; set; }
 
         public string Path { get; set; }
     }
